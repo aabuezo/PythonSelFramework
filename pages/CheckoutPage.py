@@ -7,6 +7,7 @@ class CheckoutPage:
     card_title = (By.XPATH, "div/h4/a")
     card_button = (By.CSS_SELECTOR, "div button")
     checkout_button = (By.CSS_SELECTOR, "#navbarResponsive ul li a")
+    checkout_green_button = (By.XPATH, "//button[@class='btn btn-success']")
 
     def __init__(self, driver) -> None:
         self.driver = driver
@@ -22,3 +23,6 @@ class CheckoutPage:
 
     def get_checkout_button(self):
         return self.driver.find_element(*CheckoutPage.checkout_button)
+    
+    def get_checkout_green_button(self):
+        return self.driver.find_element(*CheckoutPage.checkout_green_button)
