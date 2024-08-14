@@ -6,25 +6,31 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 from utilities.BaseClass import BaseClass
+from pages.HomePage import HomePage
+from pages.CheckoutPage import CheckoutPage
+from pages.ConfirmPage import ConfirmPage
 
 
 class TestOne(BaseClass):
 
     def test_e2e(self):
         driver = self.driver
-        driver.find_element(By.XPATH, "//a[contains(@href,'shop')]").click()
+        home_page = HomePage(driver=driver)
+        home_page.shop().click()
 
         # Finding 'Blackberry' card
-        cards = driver.find_elements(By.XPATH, "//div[@class='card h-100']")
+        checkout_page = CheckoutPage(driver=driver)
+        cards = checkout_page.get_cards()
         for card in cards:
-            card_text = card.find_element(By.XPATH, "div/h4/a").text
-            print(card_text)
-        if card_text == "Blackberry":
-            card.find_element(By.CSS_SELECTOR, "div button").click()
+            card_text = checkout_page.get_card_title(card)
+            if card_text == "Blackberry":
+                print(card_text)
+                checkout_page.get_card_button(card).click()        
+        checkout_page.get_checkout_button().click()
 
-        # Checkout
-        driver.find_element(By.CSS_SELECTOR, "#navbarResponsive ul li a").click()
-        driver.find_element(By.XPATH, "//button[@class='btn btn-success']").click()
+        confirm_page = ConfirmPage(driver=driver)
+        confirm_page.get_checkout_button().click()
+        
 
         # Choose delivery location
         driver.find_element(By.ID, "country").send_keys("ind")
