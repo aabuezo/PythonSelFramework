@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 
+from pages.ConfirmPage import ConfirmPage
+
 
 class CheckoutPage:
 
@@ -25,4 +27,7 @@ class CheckoutPage:
         return self.driver.find_element(*CheckoutPage.checkout_button)
     
     def get_checkout_green_button(self):
-        return self.driver.find_element(*CheckoutPage.checkout_green_button)
+        # integration point with ConfirmPage
+        self.driver.find_element(*CheckoutPage.checkout_green_button).click()
+        confirm_page = ConfirmPage(driver=self.driver)
+        return confirm_page
