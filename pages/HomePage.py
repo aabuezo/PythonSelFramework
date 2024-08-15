@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 
+from pages.CheckoutPage import CheckoutPage
+
 
 class HomePage():
 
@@ -9,4 +11,7 @@ class HomePage():
         self.driver = driver
 
     def shop(self):
-        return self.driver.find_element(*HomePage.shop_button)
+        # integration point with CheckoutPage
+        self.driver.find_element(*HomePage.shop_button).click()
+        checkout_page = CheckoutPage(driver=self.driver)
+        return checkout_page

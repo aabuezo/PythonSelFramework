@@ -12,10 +12,10 @@ class TestOne(BaseClass):
     def test_e2e(self):
         driver = self.driver
         home_page = HomePage(driver=driver)
-        home_page.shop().click()
+        checkout_page = home_page.shop()
 
         # Finding 'Blackberry' card
-        checkout_page = CheckoutPage(driver=driver)
+        
         cards = checkout_page.get_cards()
         for card in cards:
             card_text = checkout_page.get_card_title(card)
@@ -23,10 +23,10 @@ class TestOne(BaseClass):
                 print(card_text)
                 checkout_page.get_card_button(card).click()        
         checkout_page.get_checkout_button().click()
-        checkout_page.get_checkout_green_button().click()
+        confirm_page = checkout_page.get_checkout_green_button()
 
         # Choose delivery location
-        confirm_page = ConfirmPage(driver=driver)
+        
         confirm_page.get_country_input().send_keys("ind")
         wait = WebDriverWait(driver, 10)
         wait.until(expected_conditions.presence_of_element_located(confirm_page.india))
