@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.select import Select
 
 from pages.CheckoutPage import CheckoutPage
 
@@ -11,7 +10,7 @@ class HomePage():
     email = (By.NAME, "email")
     password = (By.ID, "exampleInputPassword1")
     checkbox = (By.ID, "exampleCheck1")
-    select = (By.ID, "exampleFormControlSelect1")
+    dropdown = (By.ID, "exampleFormControlSelect1")
     option = (By.XPATH, "//input[@value='option1']")
     submit_button = (By.XPATH, "//input[@type='submit']")
     two_way_text = (By.XPATH, "(//input[@type='text'])[3]")
@@ -49,6 +48,6 @@ class HomePage():
     def get_success_message(self):
         return self.driver.find_element(*HomePage.success_message)
     
-    def get_select(self):
-        return Select(self.driver.find_element(*HomePage.select))
+    def get_dropdown(self):
+        return HomePage.dropdown
     

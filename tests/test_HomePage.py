@@ -13,10 +13,7 @@ class TestHomePage(BaseClass):
         home_page.get_name().send_keys("John")
 
         # Static Dropdown
-        dropdown = home_page.get_select()
-        # dropdown.select_by_index(1)
-        # dropdown.select_by_value(value)
-        dropdown.select_by_visible_text("Female")
+        self.select_dropdown_option_by_text(home_page.get_dropdown(), "Female")
 
         home_page.get_submit_button().click()
         home_page.get_option().click()
@@ -26,3 +23,4 @@ class TestHomePage(BaseClass):
         success = home_page.get_success_message().text
         print(success)
         assert "Success!" in success
+
