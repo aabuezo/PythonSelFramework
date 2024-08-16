@@ -28,7 +28,7 @@ class TestOne(BaseClass):
         # Choose delivery location
         
         confirm_page.get_country_input().send_keys("ind")
-        self.verify_link_presence("india")
+        self.verify_link_presence("India")
         confirm_page.get_india_option().click()
 
         # Click the checkbox
