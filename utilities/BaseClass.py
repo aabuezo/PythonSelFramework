@@ -6,4 +6,7 @@ from selenium.webdriver.support import expected_conditions
 
 @pytest.mark.usefixtures("setup")
 class BaseClass:
-    pass
+
+    def verify_link_presence(self, text):
+        wait = WebDriverWait(self.driver, 10)
+        wait.until(expected_conditions.presence_of_element_located((By.LINK_TEXT, text)))

@@ -28,8 +28,7 @@ class TestOne(BaseClass):
         # Choose delivery location
         
         confirm_page.get_country_input().send_keys("ind")
-        wait = WebDriverWait(driver, 10)
-        wait.until(expected_conditions.presence_of_element_located(confirm_page.india))
+        self.verify_link_presence("india")
         confirm_page.get_india_option().click()
 
         # Click the checkbox
