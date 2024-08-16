@@ -1,6 +1,7 @@
 import pytest
 from utilities.BaseClass import BaseClass
 from pages.HomePage import HomePage
+from data.HomePageData import HomePageData
 
 
 class TestHomePage(BaseClass):
@@ -30,9 +31,6 @@ class TestHomePage(BaseClass):
         driver.refresh()
 
 
-    @pytest.fixture(params=[
-        {"first": "John", "last": "Doe", "password": "test1234", "email": "johndoe@mail.com", "gender": "Male"},
-        {"first": "Jane", "last": "Guy", "password": "abcd1234", "email": "janeguy@mail.com", "gender": "Female"}
-    ])
+    @pytest.fixture(params=HomePageData.test_data)
     def data_load(self, request):
         return request.param
