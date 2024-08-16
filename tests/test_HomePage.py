@@ -13,7 +13,7 @@ class TestHomePage(BaseClass):
         home_page.get_name().send_keys("John")
 
         # Static Dropdown
-        self.select_dropdown_option_by_text(home_page.get_dropdown(), "Female")
+        self.select_dropdown_option_by_text(home_page.get_dropdown_locator(), "Male")
 
         home_page.get_submit_button().click()
         home_page.get_option().click()

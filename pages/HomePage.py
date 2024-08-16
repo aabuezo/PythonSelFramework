@@ -48,6 +48,6 @@ class HomePage():
     def get_success_message(self):
         return self.driver.find_element(*HomePage.success_message)
     
-    def get_dropdown(self):
+    def get_dropdown_locator(self):
         return HomePage.dropdown
     
