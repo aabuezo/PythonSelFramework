@@ -6,3 +6,6 @@ utilities/__pycache__/
 tests/__pycache__/
 tests/.pytest_cache/
 .pytest_cache/
+*.log
+assets/
+report.html

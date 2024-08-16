@@ -15,3 +15,14 @@ class BaseClass:
 
     def select_dropdown_option_by_text(self, locator, text):
         return Select(self.driver.find_element(*locator)).select_by_visible_text(text)
+
+    def getLogger(self, filename):
+            logger = log.getLogger(filename)
+            fileHandler = log.FileHandler("utilities/my_logs.log")
+            formatter = log.Formatter('%(asctime)s: %(levelname)s: [%(filename)s:%(lineno)s] %(message)s')
+            fileHandler.setFormatter(formatter)
+            logger.handlers = []
+            logger.addHandler(fileHandler)
+            logger.setLevel(log.DEBUG)
+
+            return logger
