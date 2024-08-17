@@ -11,6 +11,9 @@ def pytest_addoption(parser):
     parser.addoption(
         "--browser_name", action="store", default="chrome", help="browser_name: chrome or safari"
     )
+    parser.addoption(
+        "--url", action="store"
+    )
 
 
 @pytest.fixture(scope="class")
@@ -18,6 +21,8 @@ def setup(request): # request is kind of a default parameter
     global driver
     # get browser_name from CMD
     browser_name = request.config.getoption("browser_name")
+    # add environment (dev, qa, int, etc)
+    url = request.config.getoption("url")
 
     if browser_name == "chrome":
         chrome_options = webdriver.ChromeOptions()
@@ -29,7 +34,7 @@ def setup(request): # request is kind of a default parameter
         driver = webdriver.Safari()
     
     driver.implicitly_wait(5)
-    driver.get("https://rahulshettyacademy.com/angularpractice/#")
+    driver.get(url)
     driver.maximize_window()
 
     request.cls.driver = driver # to pass the driver to the test class
