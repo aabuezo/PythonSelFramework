@@ -8,7 +8,7 @@ class CheckoutPage:
     cards = (By.XPATH, "//div[@class='card h-100']")
     card_title = (By.XPATH, "div/h4/a")
     card_button = (By.CSS_SELECTOR, "div button")
-    checkout_button = (By.CSS_SELECTOR, "#navbarResponsive ul li a")
+    checkout_button = (By.PARTIAL_LINK_TEXT, "Checkout")
     checkout_green_button = (By.XPATH, "//button[@class='btn btn-success']")
 
     def __init__(self, driver) -> None:

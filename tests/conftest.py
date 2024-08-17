@@ -2,6 +2,7 @@ import pytest
 
 from selenium import webdriver
 
+
 driver = None
 
 
@@ -19,8 +20,12 @@ def setup(request): # request is kind of a default parameter
     browser_name = request.config.getoption("browser_name")
 
     if browser_name == "chrome":
-        driver = webdriver.Chrome()
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--window-size=1920,1080")
+        driver = webdriver.Chrome(options=chrome_options)
     elif browser_name == "safari":
+        # headless not available for safari
         driver = webdriver.Safari()
     
     driver.implicitly_wait(5)
@@ -49,7 +54,7 @@ def pytest_runtest_makereport(item):
             file_name = report.nodeid.replace("::", "_") + ".png"
             _capture_screenshot(file_name)
             if file_name:
-                html = '<div><img src="%s" alt="screenshot" style="width:304px;height:228px;" ' \
+                html = '<div><img src="%s" alt="screenshot" style="width:304px;height:228px;"'\
                         'onclick="window.open(this.src)" align="right"/></div>' % file_name
                 extras.append(pytest_html.extras.html(html))
         report.extras = extras

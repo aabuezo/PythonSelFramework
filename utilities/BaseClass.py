@@ -18,7 +18,7 @@ class BaseClass:
 
     def getLogger(self, filename):
             logger = log.getLogger(filename)
-            fileHandler = log.FileHandler("utilities/my_logs.log")
+            fileHandler = log.FileHandler("my_logs.log")
             formatter = log.Formatter('%(asctime)s: %(levelname)s: [%(filename)s:%(lineno)s] %(message)s')
             fileHandler.setFormatter(formatter)
             logger.handlers = []
