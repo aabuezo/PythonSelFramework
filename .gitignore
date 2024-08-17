@@ -10,3 +10,4 @@ tests/.pytest_cache/
 assets/
 report.html
 *.png
+*.xml
