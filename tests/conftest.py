@@ -1,5 +1,4 @@
 import pytest
-
 from selenium import webdriver
 
 
@@ -11,11 +10,12 @@ def pytest_addoption(parser):
     parser.addoption(
         "--browser_name", action="store", default="chrome", help="browser_name: chrome or safari"
     )
-    parser.addoption(
-        "--url", action="store"
+    parser.addoption(   # url depends on the environment (dev, qa, int, etc)
+        "--url", action="store", default="https://rahulshettyacademy.com/angularpractice/", help="url of the application"
     )
 
 
+# run: pytest tests/test_e2e.py -v
 @pytest.fixture(scope="class")
 def setup(request): # request is kind of a default parameter
     global driver
@@ -26,13 +26,14 @@ def setup(request): # request is kind of a default parameter
 
     if browser_name == "chrome":
         chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--window-size=1920,1080")
+        # chrome_options.add_argument("--headless")
+        # chrome_options.add_argument("--window-size=1920,1080")
         driver = webdriver.Chrome(options=chrome_options)
     elif browser_name == "safari":
         # headless not available for safari
         driver = webdriver.Safari()
     
+    driver.maximize_window()
     driver.implicitly_wait(5)
     driver.get(url)
     driver.maximize_window()
@@ -42,6 +43,8 @@ def setup(request): # request is kind of a default parameter
     driver.close()
 
 
+# pytest -n 4 -v --html=reports/report.html
+# pytest -n 2 --browser_name chrome --html=reports/report.html -v
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item):
     """
@@ -56,15 +59,15 @@ def pytest_runtest_makereport(item):
     if report.when == 'call' or report.when == "setup":
         xfail = hasattr(report, 'wasxfail')
         if (report.skipped and xfail) or (report.failed and not xfail):
-            file_name = report.nodeid.replace("::", "_") + ".png"
-            _capture_screenshot(file_name)
-            if file_name:
-                html = '<div><img src="%s" alt="screenshot" style="width:304px;height:228px;"'\
-                        'onclick="window.open(this.src)" align="right"/></div>' % file_name
+            screenshot = _capture_screenshot()
+            if screenshot:
+                html = '<div><img src="data:image/png;base64,%s" alt="screenshot" ' \
+                       'style="width:304px;height:228px;" onclick="window.open(this.src)" ' \
+                       'align="right"/></div>' % screenshot
                 extras.append(pytest_html.extras.html(html))
         report.extras = extras
 
 
-def _capture_screenshot(name):
+def _capture_screenshot():
     global driver
-    driver.get_screenshot_as_file(name)
+    return driver.get_screenshot_as_base64()

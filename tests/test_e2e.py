@@ -1,10 +1,5 @@
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions
-
 from utilities.BaseClass import BaseClass
 from pages.HomePage import HomePage
-from pages.CheckoutPage import CheckoutPage
-from pages.ConfirmPage import ConfirmPage
 
 
 class TestOne(BaseClass):
